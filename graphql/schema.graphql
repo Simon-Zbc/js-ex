@@ -1,0 +1,24 @@
+"""
+サンプルテーブル
+"""
+type Sample
+@model
+@auth(rules: [{ allow: private, provider: iam },{ allow: private, provider: userPools }])
+@key(name: "GSISampleByGroupId", fields:["groupId"], queryField: "listSampleGroupId")
+{
+  id: ID! "レコードID"
+  groupId: ID! "グループID"
+  groupInfo: [Group] @connection(fields:["groupId"])
+  userId: ID! "ユーザID"
+  userInfo: [User] @connection(fields: ["userId"])
+  sampleInt: Int "Int例"
+  sampleFloat: Float "Float例"
+  sampleString: String "String例"
+  sampleBool: Boolean "Boolean例"
+  sampleDate: AWSDate! "日例"
+  sampleDateTime: AWSDateTime! "日時例"
+  sampleJson: AWSJSON "Json例"
+  ttl: AWSTimestamp @ttl
+  createdAt: AWSTimestamp
+  updatedAt: AWSTimestamp
+}
